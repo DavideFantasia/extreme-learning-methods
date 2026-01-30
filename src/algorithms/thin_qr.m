@@ -12,8 +12,9 @@ function [R,V] = thin_qr(A)
     for k= 1:n 
         x = A(k:m,k);
         v = Householder_vector(x);
-        A(k:m,k:n)=A(k:m,k:n)-2*v*(v.'* A(k:m,k:n)); 
-
+        if any(v) %applica l'aggiornamento solo se il vettore di householder non è nullo
+            A(k:m,k:n)=A(k:m,k:n)-2*v*(v.'* A(k:m,k:n)); 
+        end
         %salvataggio del vettore v
         V{k}=v;
     end

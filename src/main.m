@@ -9,7 +9,7 @@ addpath(genpath('utils'));
 method = 'qr';
 
 % Fake dataset
-X = rand(100, 5);    % 100 samples, 5 features
+X = rand(100, 2);    % 100 samples, 2 features
 Y = sin(X(:,1)) + X(:,2).^2;
     
 % Hyperparameters

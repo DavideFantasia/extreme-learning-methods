@@ -2,7 +2,7 @@ function [v] = Householder_vector(x)
     % Calcola il vettore di Householder v
     % tale che v = x - s * e1
     
-    % Assicurati che x sia un vettore colonna
+    % Check che x sia un vettore colonna
     x = x(:);
     n = length(x);
 
@@ -10,7 +10,7 @@ function [v] = Householder_vector(x)
     sigma = norm(x);
     if sigma == 0
         s = 0;
-        v=eye(n);
+        v=zeros(n,1); %vettore nullo
         return;
     end
 
