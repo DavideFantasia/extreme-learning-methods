@@ -5,6 +5,9 @@ clear; clc; close all;
 addpath(genpath('algorithms'));
 addpath(genpath('utils'));
 
+% algoritmo scelto per la risoluzione del sistema lineare: 'cg' o 'qr'
+method = 'qr';
+
 % Fake dataset
 X = rand(100, 5);    % 100 samples, 5 features
 Y = sin(X(:,1)) + X(:,2).^2;
@@ -16,7 +19,7 @@ lambda = 1e-3;
 activation = @(z) tanh(z);
     
 % Train
-model = elm_train(X, Y, hidden_dim, lambda, activation);
+model = elm_train(X, Y, hidden_dim, lambda, activation, method);
     
 % Predict
 Yhat = elm_predict(model, X);
