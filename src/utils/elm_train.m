@@ -18,8 +18,8 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
     W1 = randn(hidden_dim, input_dim)/ sqrt(input_dim); %con scalatura per input_dim
     b1 = randn(hidden_dim, 1);
     
-    %H = activation(W1*X' + b1);   % hidden_dim * N
-    %H = H';                       % N * hidden_dim
+    %H = activation(W1*X' + b1);   % hidden_dim x N
+    %H = H';                       % N x hidden_dim
     %evitiamo il calcolo esplicito come:
     H = activation(X*W1' + b1');
 

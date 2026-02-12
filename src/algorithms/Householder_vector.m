@@ -6,10 +6,8 @@ function [v] = Householder_vector(x)
     x = x(:);
     n = length(x);
 
-    %sigma = sqrt(sum(x.^2)); 
     sigma = norm(x);
     if sigma == 0
-        s = 0;
         v=zeros(n,1); %vettore nullo
         return;
     end
