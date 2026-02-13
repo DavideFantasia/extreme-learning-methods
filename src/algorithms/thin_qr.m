@@ -2,7 +2,6 @@ function [R,V] = thin_qr(A)
 % Calcolo della Thin QR Factorization di A, ma calcolando solo R e
 % restituendo il vettore V di vettori di Householder:
 % Hx= x- 2/norm(v) * v * v^T * x
-    disp("--- thin QR Factorization ---");
     [m,n] = size(A);
     if m < n
         error('thin_qr: richiede m >= n');

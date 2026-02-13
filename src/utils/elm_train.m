@@ -22,7 +22,11 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
     %H = H';                       % N x hidden_dim
     %evitiamo il calcolo esplicito come:
     H = activation(X*W1' + b1');
+    
+    %contatore delle iterazioni per CG inizializzato
+    iter = 0;
 
+    tic
     % Soluzione per W2 basata su 'method'
     if strcmpi(method, 'qr')
         % --- Metodo Thin QR ---
@@ -73,11 +77,13 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
     else
         error('Metodo non riconosciuto. Usa "qr" o "cg".');
     end
-    
+    solving_time = toc;
     % save model data
     model.W1 = W1;
     model.b1 = b1;
     model.W2 = W2;
     model.activation = activation;
     model.method = method;
+    model.solving_time = solving_time;
+    model.iteration = iter;
 end

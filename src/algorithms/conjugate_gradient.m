@@ -1,5 +1,4 @@
 function [x, residuals, iter] = conjugate_gradient(A, b, max_iter, tol)
-    disp("--- conjugate gradient ---");
     n = length(b);
     x = zeros(n,1);
     
