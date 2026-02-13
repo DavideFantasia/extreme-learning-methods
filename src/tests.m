@@ -9,6 +9,7 @@
 
 % Pulizia dell'ambiente
 clear; clc; close all;
+rng(0);
 
 % Aggiunta sottocartelle al path
 addpath(genpath('algorithms'));
@@ -104,4 +105,5 @@ if strcmpi(method, 'cg')
     xlabel('Hidden dimension')
     ylabel('CG iterations')
     grid on
+
 end
