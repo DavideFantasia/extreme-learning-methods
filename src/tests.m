@@ -18,7 +18,7 @@ addpath(genpath('utils'));
 reevaluation_number = 10; %number of time we compute the training to average the performance.
 
 % algoritmo scelto per la risoluzione del sistema lineare: 'cg' o 'qr'
-method = 'cg';
+method = 'qr';
 n_samples = [100 200 500 1000 2000];
 n = n_samples(4);
 
@@ -105,5 +105,4 @@ if strcmpi(method, 'cg')
     xlabel('Hidden dimension')
     ylabel('CG iterations')
     grid on
-
 end
