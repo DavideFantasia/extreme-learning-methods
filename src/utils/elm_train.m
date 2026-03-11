@@ -1,5 +1,5 @@
 function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
-    % method: 'qr' (default) oppure 'cg'
+    % method: 'qr' (default), 'lsqr', oppure 'cg'
     
     if nargin < 6
         method = 'qr';
@@ -71,6 +71,31 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
             
             % Chiamata alla funzione conjugate_gradient fornita
             [W2(:, j), res, iter] = conjugate_gradient(A, b_j, max_iter, tol);
+            
+        end
+    elseif strcmpi(method, 'lsqr')
+        % --- Metodo LSQR ---
+        % Risolve il sistema lineare: (H'H + lambda*I) * W2 = H'Y
+        
+        % Costruzione della matrice del sistema A (simmetrica e definita positiva)
+        A = (H' * H) + lambda * eye(hidden_dim);
+        
+        % Costruzione del termine noto B
+        B_target = H' * Y;
+        
+        % Inizializzazione pesi
+        W2 = zeros(hidden_dim, output_dim);
+        
+        % Parametri CG
+        max_iter = 1000; % O hidden_dim
+        tol = 1e-6; % tolleranza
+        
+        % Poiché Y può avere più colonne (multi-output), cicliamo su ogni output.
+        for j = 1:output_dim
+            b_j = B_target(:, j);
+            
+            % Chiamata alla funzione conjugate_gradient fornita
+            [W2(:, j), res, iter] = lsqr(A, b_j, max_iter, tol);
             
         end
         
