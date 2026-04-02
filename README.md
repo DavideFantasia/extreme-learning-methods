@@ -1,39 +1,40 @@
-# Extreme Learning Machine Implementation
-## Computational Mathematics Project
+# Extreme Learning Machines: Numerical Solvers
 
-### Overview
-This project implements an **Extreme Learning Machine (ELM)** algorithm in MATLAB, focusing on efficient numerical linear algebra techniques. As per the project requirements, the training phase involves solving a linear least-squares problem with $L_2$ regularization using two distinct approaches:
+This repository contains a MATLAB implementation of an Extreme Learning Machine (ELM) for regression tasks. The primary focus of this project is the efficient and stable numerical resolution of the ELM training phase, which translates to a Tikhonov-regularized linear least-squares problem.
 
-1.  **Direct Method:** Utilizing **Thin QR Factorization** (scaling linearly with dimensions).
-2.  **Iterative Method:** Utilizing the **Conjugate Gradient (CG)** method.
+## Implemented Solvers
 
-### Mathematical Formulation
-The model is defined as a single-hidden layer neural network:
-$$y = W_2 \sigma(W_1 x)$$
+To find the optimal output weights of the neural network, three different algorithmic approaches have been implemented from scratch:
 
-Where:
-* $W_1$ is a fixed random weight matrix.
-* $\sigma(\cdot)$ is the element-wise activation function.
-* $W_2$ is the output weight matrix computed by solving:
-    $$\min_{W_2} \| H W_2^T - Y \|_2^2 + \lambda \| W_2 \|_2^2$$
+1. **Thin QR Factorization (`qr`)**: A direct solver that uses Householder reflectors on an augmented system matrix. It avoids forming the Gram matrix, thus preserving the condition number and ensuring high numerical stability.
+2. **Conjugate Gradient (`cg`)**: An iterative Krylov subspace method applied to the regularized Normal Equations. It leverages fast matrix-matrix multiplications, making it highly time-efficient for large-scale, well-conditioned datasets.
+3. **LSQR (`lsqr`)**: An iterative solver based on Golub-Kahan bidiagonalization (Paige & Saunders, 1982). It provides the speed of iterative methods like CG but operates directly on the augmented matrix, preventing the catastrophic loss of precision associated with ill-conditioned Normal Equations.
 
-### Algorithms
-The repository contains custom implementations (no built-in `backslash` for the core solvers) of:
+## Repository Structure
 
-* **Thin QR Factorization:** Implemented via Householder reflectors for numerical stability.
-* **Conjugate Gradient:** Implemented for solving the normal equations $A^T A x = A^T b$.
+- `src/algorithms/`: Core numerical linear algebra implementations (`thin_qr.m`, `conjugate_gradient.m`, `lsqr.m`, etc.).
+- `src/utils/`: Machine learning utility functions for the ELM wrapper (`elm_train.m`, `elm_predict.m`, `apply_Qt.m`).
+- `src/`: Testing and benchmarking scripts (`test_comparison.m`, `n_neurons_vs_n_samples.m`, etc.) used to evaluate time complexity, iterations, and test errors.
+- `docs/`: Generated plots and figures analyzing the algorithmic scalability and generalization capabilities.
 
-### Structure
-* `src/algorithms/`: Core numerical methods (`thin_qr.m`, `conjugate_gradient.m`).
-* `src/utils/`: Helper functions for managing the compilation.
+## Usage
 
-### Performance Analysis
-The project includes a study on how the **hidden layer dimension** affects:
-* Computational time (CPU time).
-* Accuracy (RMSE).
+To train and evaluate an ELM model, ensure that the `src` folder and its subdirectories are added to your MATLAB path.
 
-*(futuro un grafico dei risultati generato da MATLAB)*
+```matlab
+% Define hyperparameters
+hidden_dim = 150;
+lambda = 1e-3;
+activation = @(z) tanh(z);
 
-### 👥 Authors
-* Davide Fantasia
-* Massimo Parlanti
+% Train the model using one of the solvers: 'qr', 'cg', or 'lsqr'
+model = elm_train(X_train, Y_train, hidden_dim, lambda, activation, 'lsqr');
+
+% Make predictions on new data
+Y_pred = elm_predict(model, X_test);
+```
+
+To reproduce the experimental results and plots discussed in the project report, simply run the benchmarking scripts located in the root of the `src/` directory (e.g., `test_comparison.m`).
+
+# Requirements
+- **MATLAB**: The code relies on base MATLAB functionality. No additional toolboxes (like the Machine Learning or Optimization toolboxes) are strictly required to run the core algorithms.
