@@ -1,7 +1,7 @@
 %Si vuole testare se, con la soluzione tramite QR, aumentando il numero di samples
 % e lasciando fissa hidden_dim, ci si aspetta complessità lineare in tempo
 
-% Pulizia dell'ambiente
+% Pulizia dell ambiente
 clear; clc; close all;
 
 % Aggiunta sottocartelle al path
@@ -9,7 +9,7 @@ addpath(genpath('algorithms'));
 addpath(genpath('utils'));
 rng(0); %seed del random, per fissare la generazione di W1
 
-% algoritmo scelto per la risoluzione del sistema lineare: 'cg' o 'qr'
+% algoritmo scelto per la risoluzione del sistema lineare: 'cg', 'lsqr', o 'qr'
 method = 'qr';
 n_samples = [2000 2500 3000 3500 4000 4500 5000 5500 6000 6500 7000 7500 8000 8500 9000 9500 10000];
 
@@ -19,9 +19,9 @@ hidden_values = [20 50 100 150 200 250 300 350 400 500 600 700 800]; %numero di 
 activation = @(z) tanh(z);
 
 % Misurazioni
-avg_times       = zeros(length(n_samples),1);
+avg_times = zeros(length(n_samples),1);
 
-reevaluation_number = 15; %number of time we compute the training to average the performance.
+reevaluation_number = 15; %numero di volte che si rifa il calcolo per fare la media
 
 %dataset di dimensione massima
 n_max = max(n_samples);
@@ -37,7 +37,7 @@ for i = 1:length(n_samples)
     X = X_full(1:n,:);
     Y = Y_full(1:n);
     
-    %split 80/20 del dataset in dataset di training e di test
+    %proporzione 80/20 per train/test
     idx = randperm(n);
     ntrain = round(0.8*n);
     

@@ -1,4 +1,5 @@
 function [x, residuals, iter] = lsqr(A, b, max_iter, tol)
+% ========================================================================
 % LSQR risolve il problema min ||Ax - b||^2 tramite bidiagonalizzazione di
 % Lanczos con Givens rotations
 % a differenza del CG, LSQR opera direttamente su A rettangolare ed evita
@@ -7,6 +8,7 @@ function [x, residuals, iter] = lsqr(A, b, max_iter, tol)
 % ad ogni iterazione:
 % 1. Bidiagonalizzazione di Lanczos
 % 2. Givens rotations
+% ========================================================================
 
 % inizializzazione
 [~, n] = size(A);

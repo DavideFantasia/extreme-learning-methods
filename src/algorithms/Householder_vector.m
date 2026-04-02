@@ -1,7 +1,9 @@
 function [v] = Householder_vector(x)
+% ========================================
     % Calcola il vettore di Householder v
     % tale che v = x - s * e1
-    
+% ========================================
+
     % Check che x sia un vettore colonna
     x = x(:);
     n = length(x);
@@ -13,6 +15,7 @@ function [v] = Householder_vector(x)
     end
 
     % Scelta di s: opposto al segno di x(1) per stabilità
+    % evitando il rischio di cancellazione per x(1) vicino a sigma
     if x(1) >= 0
         s = -sigma;
     else

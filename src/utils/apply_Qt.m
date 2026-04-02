@@ -1,5 +1,7 @@
 function y = apply_Qt(Vs, b)
-    % Applica Q^T * b, dove Q = H1 H2 ... Hn
+% ======================================
+% Applica Q^T * b, dove Q = H1 H2 ... Hn
+% ======================================
     n = length(Vs);
     y = b;
     for k = 1:n

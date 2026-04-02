@@ -29,7 +29,7 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
     tic
     % Soluzione per W2 basata su 'method'
     if strcmpi(method, 'qr')
-        % --- Metodo Thin QR ---
+        % ==== Metodo Thin QR ====
         % Risolve: min || [H; sqrt(lambda)I] * W2 - [Y; 0] ||^2
         
         % Solve regularized least squares via thin QR
@@ -48,7 +48,7 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
         W2 = R \ Y_tilde(1:hidden_dim,:);
         
     elseif strcmpi(method, 'cg')
-        % --- Metodo Conjugate Gradient ---
+        % ==== Metodo Conjugate Gradient ====
         % Risolve il sistema lineare: (H'H + lambda*I) * W2 = H'Y
         
         % Costruzione della matrice del sistema A (simmetrica e definita positiva)
@@ -74,7 +74,7 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
             
         end
     elseif strcmpi(method, 'lsqr')
-        % --- Metodo LSQR ---
+        % ==== Metodo LSQR ====
         % Risolve il sistema lineare: (H'H + lambda*I) * W2 = H'Y
         
         % Costruzione della matrice del sistema A (simmetrica e definita positiva)
@@ -94,13 +94,13 @@ function model = elm_train(X, Y, hidden_dim, lambda, activation, method)
         for j = 1:output_dim
             b_j = B_target(:, j);
             
-            % Chiamata alla funzione conjugate_gradient fornita
+            % Chiamata alla funzione lsqr
             [W2(:, j), res, iter] = lsqr(A, b_j, max_iter, tol);
             
         end
         
     else
-        error('Metodo non riconosciuto. Usa "qr" o "cg".');
+        error('Metodo non riconosciuto. Usa "qr", "lsqr" o "cg".');
     end
     solving_time = toc;
     % save model data

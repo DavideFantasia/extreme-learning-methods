@@ -1,4 +1,5 @@
 function [x, residuals, iter] = conjugate_gradient(A, b, max_iter, tol)
+% ========================================================================
 % conjugate_gradient risolve il sistema lineare A*x=b con il metodo del CG
 % il metodo è applicabile solo se A è SPD (Symmetric Positive Definite)
 % input:
@@ -8,10 +9,10 @@ function [x, residuals, iter] = conjugate_gradient(A, b, max_iter, tol)
 % - tol : tolleranza sul residuo per il criterio di arresto
 %
 % output:
-% - x  : soluzione approssimata al momento dell'arresto
+% - x  : soluzione approssimata al momento dell arresto
 % - residuals: vettore delle norme del residuo ad ogni iterazione
 % - iter : numero di iterazioni effettivamente eseguite
-
+% ========================================================================
     n = length(b);
 
     % inizializzazione

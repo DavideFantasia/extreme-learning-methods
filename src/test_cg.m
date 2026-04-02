@@ -1,7 +1,7 @@
-% /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+% ====================================================================
 % script per analizzare le prestazioni del metodo (A2) CG applicato al
-% training dell'ELM
-% /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+% training dell ELM
+% ====================================================================
 
 clear; clc; close all;
 rng(0); % seed fisso garantisce riproducibilità

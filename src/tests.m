@@ -1,13 +1,14 @@
+% ########################################################################
 %Vengono effettuati i seguenti test/misurazioni:
-% - Tempo di training con numero di samples fissato all'aumentare della
+% - Tempo di training con numero di samples fissato all aumentare della
 %   dimensione del layer nascosto
-% - Errore nel training all'aumentare del numero di neuroni con numero d
+% - Errore nel training all aumentare del numero di neuroni con numero d
 %   samples fissato
-% - per CG: numero di iterazioni all'aumentare della dimensione del layer 
+% - per CG: numero di iterazioni all aumentare della dimensione del layer 
 %   nascosto, con numero di samples fissato
+% ########################################################################
 
-
-% Pulizia dell'ambiente
+% Pulizia dell ambiente
 clear; clc; close all;
 rng(0);
 
@@ -15,9 +16,9 @@ rng(0);
 addpath(genpath('algorithms'));
 addpath(genpath('utils'));
 
-reevaluation_number = 10; %number of time we compute the training to average the performance.
+reevaluation_number = 10;
 
-% algoritmo scelto per la risoluzione del sistema lineare: 'cg' o 'qr'
+% algoritmo scelto per la risoluzione del sistema lineare: 'cg', 'lsqr', o 'qr'
 method = 'qr';
 n_samples = [100 200 500 1000 2000];
 n = n_samples(4);
@@ -82,7 +83,7 @@ for i = 1:length(hidden_values)
 end
 
 % printing dei grafici
-% Errore medio nel training all'aumentare del numero di neuroni
+% Errore medio nel training all aumentare del numero di neuroni
 figure
 plot(hidden_values, avg_test_error,'-o','LineWidth',2)
 title(strcat(method,':Average test Error on Hidden Dimension'))
@@ -90,7 +91,7 @@ xlabel('Hidden dimension')
 ylabel('Test RMSE')
 grid on
 
-% Tempo medio impiegato nel training all'aumento del numero di neuroni
+% Tempo medio impiegato nel training all aumentare del numero di neuroni
 figure
 plot(hidden_values, avg_times,'-o','LineWidth',2)
 title(strcat(method,':Average training time on Hidden Dimension'))
