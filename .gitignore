@@ -1,0 +1,11 @@
+# MATLAB files
+*.asv
+*.mat
+*.autosave
+*.fig
+slprj/
+
+# Generated files
+*.pdf
+*.jpg
+*.png
